@@ -1,2 +1,2 @@
 # TODO-list
-TODO list of calls
+application for creating TODO list of calls
