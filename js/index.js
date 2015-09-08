@@ -1,6 +1,10 @@
 // 'todo calls' functionality
-(function () {
+var todoApp = (function ($) {
 	'use strict';
+    var myLib = {};
+    myLib.getFirstFutureEntryDate = getFirstFutureEntryDate;
+    myLib.convertPhone = convertPhone;
+    myLib.isEntryTimeInFuture = isEntryTimeInFuture;
 
 	var data = [];
 	var addBlock = $('.add-item');
@@ -9,7 +13,7 @@
     var listTable = listBlock.find('table');
 	var addForm = addBlock.find('form');
     var counter = 0;
-    
+
     function render() {
         var localData = localStorage.getItem('list');
         if (localData) {
@@ -164,4 +168,6 @@
 
     render();
     setInterval(updateEntrylist, 60000); // update call list every minute
-})();
+
+    return myLib;
+})(jQuery);
