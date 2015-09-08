@@ -73,8 +73,8 @@
         //convert to this line 00XXX XXX XXX XXX
         return result.slice(0, 5) + ' ' + result.slice(5, 8) + ' ' + result.slice(8, 11) + ' ' + result.slice(11);
     }
-    function showNextCall() {
-        var data = getFirstFutureEntryDate();
+    function showNextCall(entry) {
+        var data = getFirstFutureEntryDate() || entry;
         if (data) {
             nextBlock.find('input[name="user-name"]').val(data.name);
             nextBlock.find('input[name="user-phone"]').val(data.phone);
@@ -115,6 +115,22 @@
 
         return futureData[0];
     }
+    function updateEntrylist(){
+        var currentNext = getFirstFutureEntryDate();
+        if(currentNext) {
+            var stillInFuture = isEntryTimeInFuture(currentNext.time);
+            if (!stillInFuture) {
+                $(data).each(function(i, el){
+                    if (el.id === currentNext.id) {
+                        el.inFuture = false;
+                        updateData();
+                        showNextCall();
+                    }
+                });
+                listBlock.find('tr[data-id="'+currentNext.id+'"] input[type="checkbox"]').attr('checked', true);
+            }
+        }
+    }
 
 	addForm.submit(function(e){
 		e.preventDefault();
@@ -147,4 +163,5 @@
     });
 
     render();
+    setInterval(updateEntrylist, 60000); // update call list every minute
 })();
