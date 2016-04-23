@@ -1,0 +1,29 @@
+<div class="item list-item">
+    <h3 class="text-center">List of calls</h3>
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr class="active">
+                <th>Name</th>
+                <th>Phone Number</th>
+                <th>Time</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody ng-repeat="item in callList">
+            <!--<item-call></item-call>-->
+            <tr>
+                <td>{{item.name}}</td>
+                <td>{{item.phone}}</td>
+                <td>{{item.time}}</td>
+                <td><a href="#" ng-click="removeItem(item.id)">delete</a></td>
+                <td><input type="checkbox" name="viwed" disabled checked></td>
+            </tr>
+        </tbody>
+    </table>
+    <p class="text-center">
+        <a class="btn btn-default" href="#" role="button" title="all">All</a>
+        <a class="btn btn-default" href="#" role="button" title="next">Next</a>
+        <a class="btn btn-default" href="#" role="button" title="finished">Finished</a>
+    </p>
+</div>

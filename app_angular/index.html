@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title>ToDoCalls angular app</title>
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/index.css">
+    
+    <script src="node_modules/angular/angular.min.js"></script>
+    <script src="node_modules/angular/angular.min.js"></script>
+    <script src="node_modules/lodash/lodash.js"></script>
+    
+    <script src="js/index.js"></script>
+    <!--directives-->
+    <script src="js/directives/nextCall/script.js"></script>
+    <script src="js/directives/callList/script.js"></script>
+    <script src="js/directives/itemCall/script.js"></script>
+    <script src="js/directives/addCall/script.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <h1 class="text-center">ToDoCalls angular app</h1>
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-sm-12">
+                <add-call-form></add-call-form>
+            </div>
+            <div class="col-md-6 col-sm-12">
+                <next-call></next-call>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <call-list></call-list>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
