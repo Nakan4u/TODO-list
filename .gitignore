@@ -1,0 +1,4 @@
+# exclude node_modules and bower_components
+
+/app_angular/node_modules
+/app_old/bower_components
