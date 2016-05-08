@@ -7,3 +7,12 @@
     position: relative;
     margin: 10px;
 }
+form input.ng-invalid.ng-touched {
+    border-color: #FA787E;
+}
+form input.ng-valid.ng-touched {
+    border-color: #78FA89;
+}
+form .error-message {
+    color: #FA787E
+}

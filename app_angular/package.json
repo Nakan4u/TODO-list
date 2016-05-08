@@ -10,7 +10,9 @@
   "license": "ISC",
   "dependencies": {
     "angular": "^1.5.5",
-    "bootstrap": "^3.3.6"
+    "bootstrap": "^3.3.6",
+    "jquery": "^2.2.3",
+    "moment": "^2.13.0"
   },
   "devDependencies": {
     "lodash": "^4.11.1"

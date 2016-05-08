@@ -11,10 +11,10 @@
             </tr>
         </thead>
         <tbody>
-            <tr ng-repeat="item in callList">
+            <tr ng-repeat="item in callList track by $index">
                 <td>{{item.name}}</td>
                 <td>{{item.phone}}</td>
-                <td>{{item.time}}</td>
+                <td>{{item.time | date:'HH:mm'}}</td>
                 <td><a href="#" ng-click="removeItem(item.id)">delete</a></td>
                 <td><input type="checkbox" name="viwed" disabled checked></td>
             </tr>
