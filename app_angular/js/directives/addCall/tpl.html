@@ -12,16 +12,17 @@
             </div>
             <div class="form-group col-md-5">
                 <label class="sr-only" for="field-2-2">Phone *</label>
-                <input type="text" name="userPhone" class="form-control" ng-model="phone" placeholder="Phone" ng-pattern="phonePattern"
-                    required>
+                <input type="text" name="userPhone" class="form-control" ng-model="phone" placeholder="Phone" ng-pattern="phonePattern" required>
                 <span class="error-message" ng-show="addCallForm.$submitted || addCallForm.userPhone.$touched">
                     <span ng-show="addCallForm.userPhone.$error.pattern">Example of correct phone: +(420) 111 222 333</span>
-                    <span ng-show="addCallForm.userPhone.$error.required">Enter phone</span>
+                <span ng-show="addCallForm.userPhone.$error.required">Enter phone</span>
                 </span>
             </div>
             <div class="form-group col-md-3">
                 <label class="sr-only" for="timepicker">Time *</label>
-                <input type="text" name="userTime" class="form-control" id="timepicker" ng-model="time" placeholder="Time"  ng-pattern="timePattern" required>
+                <input type="text" name="userTime" class="form-control" id="timepicker" placeholder="Time" ng-model="time" ng-pattern="timePattern"
+                    datetime-picker="HH:mm" is-open="timePickerIsOpen" enable-date="false" timepicker-options="timeOptions" close-on-selection="true"
+                    ng-click="openCalendar()" required>
                 <span class="error-message" ng-show="addCallForm.$submitted || addCallForm.userTime.$touched">
                     <span ng-show="addCallForm.userTime.$error.pattern">Exaple of correct time: 21:45</span>
                     <span ng-show="addCallForm.userTime.$error.required">Enter time</span>
