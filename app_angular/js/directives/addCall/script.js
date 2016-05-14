@@ -31,7 +31,7 @@ app.directive('addCallForm', function () {
                     newCall = {
                         name: $scope.name,
                         phone: $scope.phone,
-                        time: $scope.time
+                        time: $scope.time.getTime() //parse date to store in miliseconds
                     }
                     //$scope.callList.push(newCall);
                     $scope.saveData(newCall);

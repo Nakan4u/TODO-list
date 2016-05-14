@@ -4,10 +4,14 @@ app.controller('mainCtrl', function ($scope) {
     
     $scope.callList = [
         {
-            id: 1,
             name: 'Sam Tailor',
             phone: '2189-3298',
             time: 1288323623006
+        },
+        {
+            name: 'Tom',
+            phone: '1189-3298',
+            time: 1288323623002
         }
     ];
     $scope.render = function() {
@@ -17,12 +21,14 @@ app.controller('mainCtrl', function ($scope) {
         }
     }
     $scope.saveData = function(entry) {
-        var id = $scope.callList.length + 1;
-        
-        entry.id = id;
         $scope.callList.push(entry);
         $scope.updateData();
     }
+    $scope.removeItem = function (time) {
+        // remove by time becouse it is unique for each data item
+        _.remove($scope.callList, { 'time': time });
+        $scope.updateData();
+    };  
     $scope.updateData = function() {
         localStorage.setItem('list', JSON.stringify($scope.callList));
     }

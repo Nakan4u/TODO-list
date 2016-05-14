@@ -3,20 +3,26 @@
     <table class="table table-bordered table-hover">
         <thead>
             <tr class="active">
-                <th>Name</th>
+                <th ng-click="order('name')">
+                    Name
+                    <span class="sortorder" ng-show="predicate === 'name'" ng-class="{reverse:reverse}"></span>
+                </th>
                 <th>Phone Number</th>
-                <th>Time</th>
-                <th></th>
-                <th></th>
+                <th ng-click="order('time')">
+                    Time
+                    <span class="sortorder" ng-show="predicate === 'time'" ng-class="{reverse:reverse}"></span>
+                </th>
+                <th>Action</th>
+                <th>Finished</th>
             </tr>
         </thead>
         <tbody>
-            <tr ng-repeat="item in callList track by $index">
+            <tr ng-repeat="item in callList | orderBy:predicate:reverse track by $index"">
                 <td>{{item.name}}</td>
                 <td>{{item.phone}}</td>
                 <td>{{item.time | date:'HH:mm'}}</td>
-                <td><a href="#" ng-click="removeItem(item.id)">delete</a></td>
-                <td><input type="checkbox" name="viwed" disabled checked></td>
+                <td><a href="" ng-click="removeItem(item.time)">delete</a></td>
+                <td><input type="checkbox" name="viwed" ng-checked="timeInPast(item.time)" disabled ></td>
             </tr>
         </tbody>
     </table>

@@ -16,3 +16,10 @@ form input.ng-valid.ng-touched {
 form .error-message {
     color: #FA787E
 }
+
+.sortorder:after {
+  content: '\25b2';
+}
+.sortorder.reverse:after {
+  content: '\25bc';
+}
