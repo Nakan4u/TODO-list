@@ -17,7 +17,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr ng-repeat="item in callList | orderBy:predicate:reverse track by $index"">
+            <tr ng-repeat="item in callList | orderBy:predicate:reverse track by $index" ng-show="toogleView(item.time)">
                 <td>{{item.name}}</td>
                 <td>{{item.phone}}</td>
                 <td>{{item.time | date:'HH:mm'}}</td>
@@ -27,8 +27,8 @@
         </tbody>
     </table>
     <p class="text-center">
-        <a class="btn btn-default" href="#" role="button" title="all">All</a>
-        <a class="btn btn-default" href="#" role="button" title="next">Next</a>
-        <a class="btn btn-default" href="#" role="button" title="finished">Finished</a>
+        <a class="btn btn-default" href="" role="button" title="all" ng-click="setTimeFilter('all')">All</a>
+        <a class="btn btn-default" href="" role="button" title="next" ng-click="setTimeFilter('next')">Next</a>
+        <a class="btn btn-default" href="" role="button" title="finished" ng-click="setTimeFilter('finished')">Finished</a>
     </p>
 </div>
