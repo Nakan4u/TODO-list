@@ -48,19 +48,6 @@ app.controller('mainCtrl', function ($scope) {
         $scope.nextCall = result;
     }
 
-    function getFirstFutureEntryDate() {
-        var futureData;
-        futureData = data.filter(function (i) {
-            if (i.inFuture == 1) return i;
-        }).sort(function (a, b) {
-            var dateA = new Date(a.fullTime),
-                dateB = new Date(b.fullTime);
-            return dateA - dateB;
-        });
-
-        return futureData[0];
-    }
-
     // init app
     $scope.render();
 });
