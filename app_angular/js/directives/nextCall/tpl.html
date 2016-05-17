@@ -4,15 +4,15 @@
         <div class="row">
             <div class="form-group col-md-4">
                 <label class="sr-only" for="field-1-1">Name</label>
-                <input type="text" name="user-name" class="form-control" id="field-1-1" value="{{name}}" placeholder="Name" readonly>
+                <input type="text" name="user-name" class="form-control" id="field-1-1" value="{{nextCall.name}}" placeholder="Name" readonly>
             </div>
             <div class="form-group col-md-5">
                 <label class="sr-only" for="field-1-2">Phone</label>
-                <input type="text" name="user-phone" class="form-control" id="field-1-2" value="{{phone}}" placeholder="Phone" readonly>
+                <input type="text" name="user-phone" class="form-control" id="field-1-2" value="{{nextCall.phone}}" placeholder="Phone" readonly>
             </div>
             <div class="form-group col-md-3">
                 <label class="sr-only" for="field-1-3">Time</label>
-                <input type="text" name="user-time" class="form-control" id="field-1-3" value="{{time}}" placeholder="Time" readonly>
+                <input type="text" name="user-time" class="form-control" id="field-1-3" value="{{nextCall.time | date:'HH:mm'}}" placeholder="Time" readonly>
             </div>
         </div>
     </form>
