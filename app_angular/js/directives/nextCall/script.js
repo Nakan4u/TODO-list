@@ -1,4 +1,5 @@
-
+(function () {
+    'use strict';
 
     angular
         .module('myApp')
@@ -8,3 +9,4 @@
                 templateUrl: './js/directives/nextCall/tpl.html'
             }
         })
+})();

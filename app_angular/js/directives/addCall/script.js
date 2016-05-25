@@ -1,12 +1,15 @@
+(function () {
+    'use strict';
 
     angular
         .module('myApp')
         .directive('addCallForm', function () {
             return {
                 restrict: 'E',
-                controller: 'MainController',
                 templateUrl: './js/directives/addCall/tpl.html',
-                link: function ($scope) {
+                controller: 'MainController',
+                controllerAs: 'ctrl',
+                link: function ($scope, element, attrs, ctrl) {
                     $scope.name = '';
                     $scope.nameMaxLength = 30;
                     $scope.phone = '+(420) 111 222 333';
@@ -38,8 +41,8 @@
                                 time: $scope.time.getTime() //parse date to store in miliseconds
                             }
                             //$scope.callList.push(newCall);
-                            MainController.saveData(newCall);
-                            MainController.reset();
+                            ctrl.saveData(newCall);
+                            ctrl.reset();
 
                         }
                     }
@@ -68,3 +71,4 @@
                 }
             }
         })
+})();
