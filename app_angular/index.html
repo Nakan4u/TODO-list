@@ -1,27 +1,27 @@
 <!DOCTYPE html>
 <html lang="en" ng-app="myApp">
+
 <head>
     <meta charset="UTF-8">
     <title>ToDoCalls angular app</title>
     <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/index.css">
-    
+
     <script src="node_modules/angular/angular.min.js"></script>
     <script src="node_modules/angular-animate/angular-animate.min.js"></script>
     <script src="node_modules/angular-touch/angular-touch.min.js"></script>
     <script src="node_modules/angular-ui-bootstrap/dist/ui-bootstrap-tpls.js"></script>
     <script src="node_modules/bootstrap-ui-datetime-picker/dist/datetime-picker.min.js"></script>
-    
     <script src="node_modules/lodash/lodash.js"></script>
-    
+
     <script src="js/index.js"></script>
-    <!--directives-->
     <script src="js/controllers/main.js"></script>
     <script src="js/directives/nextCall/script.js"></script>
     <script src="js/directives/callList/script.js"></script>
     <script src="js/directives/addCall/script.js"></script>
 </head>
-<body ng-controller="mainCtrl">
+
+<body ng-controller="MainController as MainCtrl">
     <div class="container">
         <div class="row">
             <h1 class="text-center">ToDoCalls angular app</h1>
@@ -41,4 +41,5 @@
         </div>
     </div>
 </body>
+
 </html>

@@ -1,53 +1,60 @@
-var app = angular.module('myApp');
+(function () {
+    'use strict';
 
-app.controller('mainCtrl', function ($scope) {
+    angular
+        .module('myApp')
+        .controller('MainController', function ($scope, $rootScope) {
 
-    $scope.callList = [
-        {
-            name: 'Sam Tailor',
-            phone: '2189-3298',
-            time: 1288323623006
-        },
-        {
-            name: 'Tom',
-            phone: '1189-3298',
-            time: 1288323623002
-        }
-    ];
-    $scope.render = function () {
-        var localData = localStorage.getItem('list');
-        if (localData) {
-            $scope.callList = JSON.parse(localData);
-            $scope.findNextCall();
-        }
-    }
-    $scope.saveData = function (entry) {
-        $scope.callList.push(entry);
-        $scope.updateData();
-    }
-    $scope.removeItem = function (time) {
-        // remove by time becouse it is unique for each data item
-        _.remove($scope.callList, { 'time': time });
-        $scope.updateData();
-    };
-    $scope.updateData = function () {
-        localStorage.setItem('list', JSON.stringify($scope.callList));
-        $scope.findNextCall();
-    }
-    $scope.nextCall = {};
-    $scope.findNextCall = function () {
-        var allData = $scope.callList,
-            result,
-            currentTime = new Date().getTime();
+            var vm = this;
 
-        result = _.sortBy(allData, 'time'); // firstly sort all data by time
-        result = _.find(result, function (item) {  // then find first near future item
-            return item.time >= currentTime;
+            $rootScope.callList = [
+                {
+                    name: 'Sam Tailor',
+                    phone: '+(420) 113 222 393',
+                    time: 1288323623006
+                },
+                {
+                    name: 'Tom',
+                    phone: '+(420) 121 242 333',
+                    time: 1288323623002
+                }
+            ];
+            vm.render = function () {
+                var localData = localStorage.getItem('list');
+                if (localData) {
+                    $rootScope.callList = angular.fromJson(localData);
+                    vm.findNextCall();
+                }
+            }
+            vm.saveData = function (entry) {
+                $rootScope.callList.push(entry);
+                vm.updateData();
+            }
+            vm.removeItem = function (time) {
+                // remove by time becouse it is unique for each data item
+                _.remove($rootScope.callList, { 'time': time });
+                vm.updateData();
+            };
+            vm.updateData = function () {
+                localStorage.setItem('list', angular.toJson($rootScope.callList));
+                vm.findNextCall();
+            }
+            $rootScope.nextCall = {};
+            vm.findNextCall = function () {
+                var allData = $rootScope.callList,
+                    result,
+                    currentTime = new Date().getTime();
+
+                result = _.sortBy(allData, 'time'); // firstly sort all data by time
+                result = _.find(result, function (item) {  // then find first near future item
+                    return item.time >= currentTime;
+                });
+
+                $rootScope.nextCall = result;
+            }
+
+            // init app
+            vm.render();
         });
 
-        $scope.nextCall = result;
-    }
-
-    // init app
-    $scope.render();
-});
+})();
