@@ -8,7 +8,6 @@
                 restrict: 'E',
                 templateUrl: './js/directives/addCall/tpl.html',
                 controller: 'MainController',
-                controllerAs: 'ctrl',
                 link: function ($scope, element, attrs, ctrl) {
                     $scope.name = '';
                     $scope.nameMaxLength = 30;
@@ -40,10 +39,8 @@
                                 phone: $scope.phone,
                                 time: $scope.time.getTime() //parse date to store in miliseconds
                             }
-                            //$scope.callList.push(newCall);
                             ctrl.saveData(newCall);
-                            ctrl.reset();
-
+                            $scope.reset();
                         }
                     }
 
