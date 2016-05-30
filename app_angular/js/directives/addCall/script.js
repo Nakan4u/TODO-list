@@ -11,11 +11,11 @@
                 link: function ($scope, element, attrs, ctrl) {
                     $scope.name = '';
                     $scope.nameMaxLength = 30;
-                    $scope.phone = '+(420) 111 222 333';
+                    $scope.phone = '';
                     $scope.phonePattern = '(\\+|00)(\\(?\\d{3}\\)?-?)(\\s?\\d{3}){3}';
 
                     // timePicker params
-                    $scope.time = new Date();
+                    $scope.time = '';
                     $scope.timePickerIsOpen = false;
                     $scope.timePattern = '([01]\\d|2[0-3]):?([0-5]\\d)';
                     $scope.timeOptions = {
