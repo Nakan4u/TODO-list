@@ -24,7 +24,7 @@
                     datetime-picker="HH:mm" is-open="timePickerIsOpen" enable-date="false" timepicker-options="timeOptions" close-on-selection="true"
                     ng-click="openCalendar()" required>
                 <span class="error-message" ng-show="addCallForm.$submitted || addCallForm.userTime.$touched">
-                    <span ng-show="addCallForm.userTime.$error.pattern">Exaple of correct time: 21:45</span>
+                    <span ng-show="addCallForm.userTime.$error.datetime">Exaple of correct time: 21:45</span>
                     <span ng-show="addCallForm.userTime.$error.required">Enter time</span>
                 </span>
             </div>

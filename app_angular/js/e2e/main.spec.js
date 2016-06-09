@@ -17,20 +17,54 @@ describe('ToDoCalls App', function () {
     it('should have a title: ToDoCalls angular app', function () {
         expect(browser.getTitle()).toEqual('ToDoCalls angular app');
     });
-    
+
     describe('Add call form', function () {
-            
-        xit('should show error when attempt submit with emty fields', function () {
-            expect(browser.getTitle()).toEqual('ToDoCalls angular app');
-        });
-        
-        xit('should add new contact', function () {
-            HomePage.addForm.nameField.sendKeys('Jim2');
-            HomePage.addForm.phoneField.sendKeys('+(420) 111 222 333');
-            HomePage.addForm.timeField.sendKeys(new Date());
+
+        it('should show error when attempt submit with empty name field', function () {
+            HomePage.addForm.nameField.sendKeys('');
             HomePage.addForm.submitButton.click();
-            
-            expect(HomePage.addForm.contactsList.column("item.name")).toBe(3);
+
+            expect(HomePage.addForm.errors.nameRequired.isDisplayed()).toBeTruthy();
+        });
+
+        it('should show error when attempt submit with empty phone field', function () {
+            HomePage.addForm.phoneField.sendKeys('');
+            HomePage.addForm.submitButton.click();
+
+            expect(HomePage.addForm.errors.phoneRequired.isDisplayed()).toBeTruthy();
+        });
+
+        it('should show error when attempt submit with invalid phone number', function () {
+            HomePage.addForm.phoneField.sendKeys(browser.params.contactInvalid.phone);
+            HomePage.addForm.submitButton.click();
+
+            expect(HomePage.addForm.errors.phonePattern.isDisplayed()).toBeTruthy();
+        });
+
+        it('should show error when attempt submit with empty time field', function () {
+            HomePage.addForm.timeField.sendKeys('');
+            HomePage.addForm.submitButton.click();
+
+            expect(HomePage.addForm.errors.timeRequired.isDisplayed()).toBeTruthy();
+        });
+
+        it('should show error when attempt submit with invalid time', function () {
+            HomePage.addForm.timeField.sendKeys(browser.params.contactInvalid.time);
+            HomePage.addForm.submitButton.click();
+
+            expect(HomePage.addForm.errors.timePattern.isDisplayed()).toBeTruthy();
+        });
+
+        it('should add new contact', function () {
+            HomePage.addForm.nameField.sendKeys(browser.params.contactValid.name);
+            HomePage.addForm.phoneField.sendKeys(browser.params.contactValid.phone);
+            HomePage.addForm.timeField.sendKeys(browser.params.contactValid.time);
+            HomePage.addForm.submitButton.click();
+
+            HomePage.addForm.contactsList.then(function (contacts) {
+                expect(contacts.length).toEqual(3);
+            });
+
         });
     });
 

@@ -7,7 +7,14 @@ var HomePage = function() {
       phoneField: element(by.model('phone')),
       timeField: element(by.model('time')),
       submitButton: element(by.css('#add-button')),
-      contactsList: element.all(by.repeater('item in callList').column('item.name'))
+      errors: {
+        nameRequired: element(by.css('span[ng-show="addCallForm.userName.$error.required"]')),
+        phoneRequired: element(by.css('span[ng-show="addCallForm.userPhone.$error.required"]')),
+        phonePattern: element(by.css('span[ng-show="addCallForm.userPhone.$error.pattern"]')),
+        timeRequired: element(by.css('span[ng-show="addCallForm.userTime.$error.required"]')),
+        timePattern: element(by.css('span[ng-show="addCallForm.userTime.$error.datetime"]'))
+      },
+      contactsList: element.all(by.repeater('item in callList'))
   }
 
 //   this.get = function() {
