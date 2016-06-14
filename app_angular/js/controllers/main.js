@@ -10,13 +10,13 @@
             $rootScope.callList = [
                 {
                     name: 'Sam Tailor',
-                    phone: '+(420) 113 222 393',
+                    phone: '00420 121 242 333',
                     time: 1288323623006
                 },
                 {
-                    name: 'Tom',
-                    phone: '+(420) 121 242 333',
-                    time: 1288323623002
+                    name: 'Tom Henks',
+                    phone: '00420 121 242 555',
+                    time: 1248329626002
                 }
             ];
             vm.render = function () {

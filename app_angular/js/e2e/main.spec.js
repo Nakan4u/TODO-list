@@ -55,17 +55,38 @@ describe('ToDoCalls App', function () {
             expect(HomePage.addForm.errors.timePattern.isDisplayed()).toBeTruthy();
         });
 
+    });
+
+    describe('Call list', function () {
         it('should add new contact', function () {
             HomePage.addForm.nameField.sendKeys(browser.params.contactValid.name);
             HomePage.addForm.phoneField.sendKeys(browser.params.contactValid.phone);
             HomePage.addForm.timeField.sendKeys(browser.params.contactValid.time);
             HomePage.addForm.submitButton.click();
 
-            HomePage.addForm.contactsList.then(function (contacts) {
+            HomePage.addForm.contactsList.all.then(function (contacts) {
                 expect(contacts.length).toEqual(3);
             });
 
+            HomePage.addForm.contactsList.names.then(function (contacts) {
+                expect(contacts[0].getText()).toEqual(browser.params.contactValid.name);
+            });
+
+            HomePage.addForm.contactsList.phones.then(function (contacts) {
+                expect(contacts[0].getText()).toEqual(browser.params.contactValid.convertedPhone);
+            });
+
+            HomePage.addForm.contactsList.times.then(function (contacts) {
+                expect(contacts[0].getText()).toEqual(browser.params.contactValid.time);
+            });
         });
+        // TODO:
+        // should sort time asc/desc
+        // should sort names asc/desc
+        // should remove contact
+        // past contact should be checked
+        // future contact should be checked
+
     });
 
 });

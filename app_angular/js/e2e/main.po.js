@@ -14,7 +14,12 @@ var HomePage = function() {
         timeRequired: element(by.css('span[ng-show="addCallForm.userTime.$error.required"]')),
         timePattern: element(by.css('span[ng-show="addCallForm.userTime.$error.datetime"]'))
       },
-      contactsList: element.all(by.repeater('item in callList'))
+      contactsList: {
+        all: element.all(by.repeater('item in callList')),
+        names: element.all(by.repeater('item in callList').column('item.name')),
+        phones: element.all(by.repeater('item in callList').column('item.phone')),
+        times: element.all(by.repeater('item in callList').column('item.time'))
+      }
   }
 
 //   this.get = function() {

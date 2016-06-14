@@ -11,8 +11,9 @@ exports.config = {
 
   params: {
         contactValid: {
-            name: 'Tom',
+            name: 'Ben',
             phone: '+(420) 111 222 333',
+            convertedPhone: '00420 111 222 333',
             time: '12:00'
         },
         contactInvalid: {
