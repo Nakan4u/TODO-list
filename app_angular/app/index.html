@@ -4,21 +4,24 @@
 <head>
     <meta charset="UTF-8">
     <title>ToDoCalls angular app</title>
-    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <!--build:css css/main.min.css -->
+    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/index.css">
+    <!-- endbuild -->
 
-    <script src="node_modules/angular/angular.min.js"></script>
-    <script src="node_modules/angular-animate/angular-animate.min.js"></script>
-    <script src="node_modules/angular-touch/angular-touch.min.js"></script>
-    <script src="node_modules/angular-ui-bootstrap/dist/ui-bootstrap-tpls.js"></script>
-    <script src="node_modules/bootstrap-ui-datetime-picker/dist/datetime-picker.min.js"></script>
-    <script src="node_modules/lodash/lodash.js"></script>
-
+    <!--build:js js/main.min.js -->
+    <script src="../node_modules/angular/angular.min.js"></script>
+    <script src="../node_modules/angular-animate/angular-animate.min.js"></script>
+    <script src="../node_modules/angular-touch/angular-touch.min.js"></script>
+    <script src="../node_modules/angular-ui-bootstrap/dist/ui-bootstrap-tpls.js"></script>
+    <script src="../node_modules/bootstrap-ui-datetime-picker/dist/datetime-picker.min.js"></script>
+    <script src="../node_modules/lodash/lodash.js"></script>
     <script src="js/app.js"></script>
     <script src="js/controllers/main.js"></script>
     <script src="js/directives/nextCall/script.js"></script>
     <script src="js/directives/callList/script.js"></script>
     <script src="js/directives/addCall/script.js"></script>
+    <!-- endbuild -->
 </head>
 
 <body ng-controller="MainController as MainCtrl">
