@@ -6,7 +6,7 @@
         .directive('addCallForm', function () {
             return {
                 restrict: 'E',
-                templateUrl: './js/directives/addCall/tpl.html',
+                templateUrl: 'js/directives/addCall/tpl.html',
                 controller: 'MainController',
                 link: function ($scope, element, attrs, ctrl) {
                     $scope.name = '';

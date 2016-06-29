@@ -6,7 +6,7 @@
         .directive('callList', function () {
             return {
                 restrict: 'E',
-                templateUrl: './js/directives/callList/tpl.html',
+                templateUrl: 'js/directives/callList/tpl.html',
                 link: function ($scope) {
 
                     $scope.predicate = 'time';
