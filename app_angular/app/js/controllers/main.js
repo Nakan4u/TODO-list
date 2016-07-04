@@ -3,11 +3,11 @@
 
     angular
         .module('myApp')
-        .controller('MainController', function ($scope, $rootScope) {
+        .controller('MainController', function ($scope) {
 
             var vm = this;
-
-            $rootScope.callList = [
+            $scope.nextCall = {};
+            $scope.callList = [
                 {
                     name: 'Sam Tailor',
                     phone: '00420 121 242 333',
@@ -22,26 +22,25 @@
             vm.render = function () {
                 var localData = localStorage.getItem('list');
                 if (localData) {
-                    $rootScope.callList = angular.fromJson(localData);
+                    $scope.callList = angular.fromJson(localData);
                     vm.findNextCall();
                 }
             }
             vm.saveData = function (entry) {
-                $rootScope.callList.push(entry);
+                $scope.callList.push(entry);
                 vm.updateData();
             }
             vm.removeItem = function (time) {
                 // remove by time becouse it is unique for each data item
-                _.remove($rootScope.callList, { 'time': time });
+                _.remove($scope.callList, { 'time': time });
                 vm.updateData();
             };
             vm.updateData = function () {
-                localStorage.setItem('list', angular.toJson($rootScope.callList));
+                localStorage.setItem('list', angular.toJson($scope.callList));
                 vm.findNextCall();
             }
-            $rootScope.nextCall = {};
             vm.findNextCall = function () {
-                var allData = $rootScope.callList,
+                var allData = $scope.callList,
                     result,
                     currentTime = new Date().getTime();
 
@@ -50,7 +49,7 @@
                     return item.time >= currentTime;
                 });
 
-                $rootScope.nextCall = result;
+                $scope.nextCall = result;
             }
 
             // init app
