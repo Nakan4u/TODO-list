@@ -9,6 +9,11 @@ var concat = require('gulp-concat');
 var templateCache = require('gulp-angular-templatecache');
 var del = require('del');
 var addStream = require('add-stream');
+var connect = require('gulp-connect');
+ 
+gulp.task('connect', function() {
+  connect.server();
+});
 
 gulp.task('clean', function() {
   return del.sync('dist');
@@ -26,7 +31,7 @@ gulp.task('js', function () {
     .pipe(addStream.obj(prepareTemplates()))
     .pipe(concat('js/app-bundle.js'))
     .pipe(ngAnnotate())
-    // .pipe(uglify())
+    .pipe(uglify())
     .pipe(sourcemaps.write())
     .pipe(gulp.dest('dist'))
 });
@@ -39,6 +44,12 @@ gulp.task('js-dev', function () {
     .pipe(sourcemaps.write())
     .pipe(gulp.dest('app'))
 });
+
+gulp.task('dev', ['connect', 'js-dev'], function () {
+  gulp.watch('app/**/*.js', ['js-dev'])
+})
+
+// add task for run local web server
 
 gulp.task('fonts', function() {
   return gulp.src('node_modules/bootstrap/dist/fonts/**/*')
