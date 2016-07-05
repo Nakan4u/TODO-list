@@ -4,6 +4,12 @@
     angular
         .module('myApp')
         .directive('addCallForm', function () {
+            
+        //example 
+        // .directive('callList', callListDirective);
+        
+        // callListDirective.$inject = ['CONSTS']
+        // function callListDirective(CONSTS){
             return {
                 restrict: 'E',
                 templateUrl: 'js/directives/addCall/tpl.html',

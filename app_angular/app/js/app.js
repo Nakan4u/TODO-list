@@ -1,4 +1,11 @@
 // set angular module and dependency
-(function () {
-    angular.module('myApp', ['ui.bootstrap', 'ui.bootstrap.datetimepicker']);
-})();
+angular.module('myApp', ['ui.bootstrap', 'ui.bootstrap.datetimepicker'])
+.constant('CONSTS', {
+    TIMEFILTER: {
+        ALL: 0,
+        FINISHED: 1,
+        NEXT: 2
+    }
+});
+
+

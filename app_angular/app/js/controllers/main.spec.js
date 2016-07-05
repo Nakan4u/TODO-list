@@ -6,7 +6,7 @@ describe('MainController', function () {
 
     beforeEach(inject(function (_$controller_, _$rootScope_) {
         $controller = _$controller_;
-        $rootScope = _$rootScope_;
+        $rootScope = _$rootScope_.$new();
 
         localStorage.clear();
         scope = {};
