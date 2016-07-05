@@ -5,7 +5,7 @@
         .module('myApp')
         .directive('callList', callListDirective);
         
-        callListDirective.$inject = ['CONSTS']
+        callListDirective.$inject = ['CONSTS'];
         function callListDirective(CONSTS){
              return {
                 restrict: 'E',

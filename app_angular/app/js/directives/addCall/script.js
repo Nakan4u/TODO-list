@@ -3,13 +3,9 @@
 
     angular
         .module('myApp')
-        .directive('addCallForm', function () {
-            
-        //example 
-        // .directive('callList', callListDirective);
+        .directive('addCallForm', addCallForm);
         
-        // callListDirective.$inject = ['CONSTS']
-        // function callListDirective(CONSTS){
+        function addCallForm() {
             return {
                 restrict: 'E',
                 templateUrl: 'js/directives/addCall/tpl.html',
@@ -73,5 +69,5 @@
                     }
                 }
             }
-        })
+        }
 })();

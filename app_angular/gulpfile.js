@@ -10,6 +10,13 @@ var templateCache = require('gulp-angular-templatecache');
 var del = require('del');
 var addStream = require('add-stream');
 var connect = require('gulp-connect');
+
+// helper for create template cache
+function prepareTemplates() {
+  return gulp.src('app/**/*tpl.html')
+    .pipe(templateCache('templates.js', { module:'myApp', standalone:false }))
+    .pipe(gulp.dest('dist/js'));
+};
  
 gulp.task('connect', function() {
   connect.server();
@@ -17,13 +24,7 @@ gulp.task('connect', function() {
 
 gulp.task('clean', function() {
   return del.sync('dist');
-})
-
-function prepareTemplates() {
-  return gulp.src('app/**/*tpl.html')
-    .pipe(templateCache('templates.js', { module:'myApp', standalone:false }))
-    .pipe(gulp.dest('dist/js'));
-};
+});
 
 gulp.task('js', function () {
   gulp.src(['app/js/app.js', '!app/js/**/*spec.js', 'app/js/controllers/*.js', 'app/js/directives/**/*.js'])
@@ -45,11 +46,10 @@ gulp.task('js-dev', function () {
     .pipe(gulp.dest('app'))
 });
 
-gulp.task('dev', ['connect', 'js-dev'], function () {
+gulp.task('dev', ['js-dev'], function () {
   gulp.watch('app/**/*.js', ['js-dev'])
-})
+});
 
-// add task for run local web server
 
 gulp.task('fonts', function() {
   return gulp.src('node_modules/bootstrap/dist/fonts/**/*')
@@ -69,6 +69,8 @@ gulp.task('useref', function(){
     .pipe(gulp.dest('dist'))
 });
 
+gulp.task('default', ['connect', 'dev']);
+
 gulp.task('build', ['clean', 'js', 'useref', 'fonts', 'favicon'], function (){
   console.log('Building files');
-})
+});

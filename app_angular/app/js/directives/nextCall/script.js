@@ -3,10 +3,12 @@
 
     angular
         .module('myApp')
-        .directive('nextCall', function () {
+        .directive('nextCall', nextCall);
+        
+        function nextCall() {
             return {
                 restrict: 'E',
                 templateUrl: 'js/directives/nextCall/tpl.html'
             }
-        })
+        }
 })();

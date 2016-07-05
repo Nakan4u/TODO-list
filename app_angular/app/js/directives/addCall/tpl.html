@@ -14,7 +14,7 @@
                 <label class="sr-only" for="field-2-2">Phone *</label>
                 <input type="text" name="userPhone" class="form-control" ng-model="phone" placeholder="Phone" ng-pattern="phonePattern" required>
                 <span class="error-message" ng-show="addCallForm.$submitted || addCallForm.userPhone.$touched">
-                    <span ng-show="addCallForm.userPhone.$error.pattern">Example of correct phone: +(420) 111 222 333</span>
+                    <span ng-show="addCallForm.userPhone.$error.pattern">Example of correct phone: <br>+(420) 111 222 333</span>
                 <span ng-show="addCallForm.userPhone.$error.required">Enter phone</span>
                 </span>
             </div>

@@ -3,14 +3,17 @@
 
     angular
         .module('myApp')
-        .controller('MainController', function ($scope) {
+        .controller('MainController', MainController)
+        
+        MainController.$inject = ['$scope']
+        function MainController($scope) {
 
             var vm = this;
             $scope.nextCall = {};
             $scope.callList = [
                 {
                     name: 'Sam Tailor',
-                    phone: '00420 121 242 333',
+                    phone: '00420 121 242 343',
                     time: 1288323623006
                 },
                 {
@@ -54,6 +57,6 @@
 
             // init app
             vm.render();
-        });
+        }
 
 })();

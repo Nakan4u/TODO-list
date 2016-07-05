@@ -14,13 +14,10 @@ module.exports = function(config) {
       'node_modules/bootstrap-ui-datetime-picker/dist/datetime-picker.min.js',
       'node_modules/lodash/lodash.js',
       
-      'js/app.js',
-      'js/controllers/*.js',
-      'js/directives/*.js',
-      
-      '*!(.module|.spec).js',
-      '!(node_modules)/**/*!(.module|.spec).js',
-      'js/**/*.spec.js'
+      'app/js/app-bundle.js',
+      'app/js/**/*.spec.js',
+
+      '!(node_modules)/**/*!(.module|.spec).js'
     ],
 
     autoWatch: true,
