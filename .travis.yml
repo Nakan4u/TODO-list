@@ -1,4 +1,5 @@
 install:
+  - cd app_angular
   - npm i
 language: node_js
 node_js:
@@ -6,5 +7,6 @@ node_js:
 before_script:
   - npm install -g gulp
 script:
+  - cd app_angular
   - npm test
   - gulp build
