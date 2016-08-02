@@ -1,0 +1,10 @@
+install:
+  - npm i
+language: node_js
+node_js:
+  - "4.2.4"
+before_script:
+  - npm install -g gulp
+script:
+  - npm test
+  - gulp build
