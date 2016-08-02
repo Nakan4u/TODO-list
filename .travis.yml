@@ -7,5 +7,5 @@ node_js:
 before_script:
   - npm install -g gulp
 script:
-  - npm test
+  - ./node_modules/.bin/karma start --single-run
   - gulp build
