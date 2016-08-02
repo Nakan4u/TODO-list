@@ -15,7 +15,7 @@ describe('MainController', function () {
 
 
     it('should create a `contacts` model with 2 contacts by default', function () {
-        expect($rootScope.callList.length).toBe(2);
+        expect(scope.callList.length).toBe(2);
     });
 
     it('method updateData should set `contacts` model to local storage', function () {
@@ -35,13 +35,13 @@ describe('MainController', function () {
         };
         MainCtrl.saveData(newContact);
 
-        expect($rootScope.callList.length).toBe(3);
+        expect(scope.callList.length).toBe(3);
     });
 
     it('method removeItem should change `contacts` model by remove 1 contacts', function () {
         MainCtrl.removeItem(1288323623006);
 
-        expect($rootScope.callList.length).toBe(1);
+        expect(scope.callList.length).toBe(1);
     });
 
     describe('method nextCall', function () {
@@ -53,17 +53,17 @@ describe('MainController', function () {
                     phone: '+(420) 121 242 333',
                     time: futureTime
                 };
-            $rootScope.callList.push(newContact);
+            scope.callList.push(newContact);
 
             MainCtrl.findNextCall();
 
-            expect($rootScope.nextCall.name).toBe('Jim');
+            expect(scope.nextCall.name).toBe('Jim');
         });
 
         it('should not find contact in `contacts` if all contacts in the past', function () {
             MainCtrl.findNextCall();
 
-            expect($rootScope.nextCall).not.toBeDefined();
+            expect(scope.nextCall).not.toBeDefined();
         });
     });
 

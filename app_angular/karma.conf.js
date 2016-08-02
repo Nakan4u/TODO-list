@@ -19,6 +19,9 @@ module.exports = function(config) {
 
       '!(node_modules)/**/*!(.module|.spec).js'
     ],
+    exclude: [
+      'e2e/*.js'
+    ],
 
     autoWatch: true,
 
