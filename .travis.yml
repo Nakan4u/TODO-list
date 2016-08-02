@@ -7,6 +7,5 @@ node_js:
 before_script:
   - npm install -g gulp
 script:
-  - cd app_angular
   - npm test
   - gulp build
