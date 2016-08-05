@@ -11,7 +11,8 @@ describe('ToDoCalls App', function () {
     });
 
     beforeEach(function () {
-        browser.get('http://localhost:8000');
+        // browser.get('http://localhost:8000/app');
+        browser.get('http://nakan4u.github.io/TODO-list/app_angular/dist/');
     });
 
     it('should have a title: ToDoCalls angular app', function () {
@@ -64,19 +65,19 @@ describe('ToDoCalls App', function () {
             HomePage.addForm.timeField.sendKeys(browser.params.contactValid.time);
             HomePage.addForm.submitButton.click();
 
-            HomePage.addForm.contactsList.all.then(function (contacts) {
+            HomePage.contactsList.all.then(function (contacts) {
                 expect(contacts.length).toEqual(3);
             });
 
-            HomePage.addForm.contactsList.names.then(function (contacts) {
+            HomePage.contactsList.names.then(function (contacts) {
                 expect(contacts[0].getText()).toEqual(browser.params.contactValid.name);
             });
 
-            HomePage.addForm.contactsList.phones.then(function (contacts) {
+            HomePage.contactsList.phones.then(function (contacts) {
                 expect(contacts[0].getText()).toEqual(browser.params.contactValid.convertedPhone);
             });
 
-            HomePage.addForm.contactsList.times.then(function (contacts) {
+            HomePage.contactsList.times.then(function (contacts) {
                 expect(contacts[0].getText()).toEqual(browser.params.contactValid.time);
             });
         });

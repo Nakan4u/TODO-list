@@ -49,8 +49,8 @@
     "start": "http-server -a localhost -p 8000",
     "test": "karma start karma.conf.js",
     "test-single-run": "karma start karma.conf.js --single-run",
-    "update-webdriver": "webdriver-manager update",
+    "update-webdriver": "webdriver-manager update & webdriver-manager start",
     "preprotractor": "npm run update-webdriver",
-    "protractor": "protractor app/js/e2e/protractor.conf.js"
+    "protractor": "protractor e2e/protractor.conf.js"
   }
 }
