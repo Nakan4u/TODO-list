@@ -8,5 +8,5 @@ before_script:
   - npm install -g gulp
 script:
   - npm run-script test-single-run
-  - npm run-script test-single-run preprotractor
-  - npm run-script test-single-run protractor
+  - npm run-script preprotractor
+  - npm run-script protractor
