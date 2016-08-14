@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/Nakan4u/TODO-list.svg?branch=master)](https://travis-ci.org/Nakan4u/TODO-list)
+[![Coverage Status](https://coveralls.io/repos/github/Nakan4u/TODO-list/badge.svg)](https://coveralls.io/github/Nakan4u/TODO-list)
 ## TODO-list of calls
 
 Application for creating TODO list of calls.
