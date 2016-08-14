@@ -8,11 +8,25 @@ describe('ToDoCalls App', function () {
     beforeAll(function () {
         dv.manage().deleteAllCookies();
         HomePage = new HomePageClass();
+
+        // add delay before each test queue 100ms wait
+        var origFn = browser.driver.controlFlow().execute;
+        
+        browser.driver.controlFlow().execute = function () {
+            var args = arguments;
+
+            origFn.call(browser.driver.controlFlow(), function () {
+                return protractor.promise.delayed(100);
+            });
+
+            return origFn.apply(browser.driver.controlFlow(), args);
+        };
+        // end delay logik
     });
 
     beforeEach(function () {
-        // browser.get('http://localhost:8000/app');
-        browser.get('http://nakan4u.github.io/TODO-list/app_angular/dist/');
+        browser.get('http://localhost:8000/app');
+        // browser.get('http://nakan4u.github.io/TODO-list/app_angular/dist/');
     });
 
     it('should have a title: ToDoCalls angular app', function () {
