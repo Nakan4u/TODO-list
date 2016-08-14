@@ -3,3 +3,4 @@
 .DS_Store
 /app_angular/node_modules
 /app_old/bower_components
+/app_angular/coverage
