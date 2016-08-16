@@ -1,0 +1,6 @@
+{
+  "name": "Todo Calls list",
+  "tagline": "Todo Calls list",
+  "body": "# Todo Calls list\r\n\r\nApplication for creating Todo Calls list.\r\napp specification details is on the file [app_specification.pdf](./app_specification.pdf).\r\n\r\n* New angular app can be reached by this [link](app_angular/index.html);\r\n* Old app based on jquery and 3d-party plugins can be reached by this [link](app_old/index.html);\r\n",
+  "note": "Don't delete this file! It's used internally to help with page regeneration."
+}
