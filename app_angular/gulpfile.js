@@ -19,7 +19,7 @@ function prepareTemplates() {
 };
  
 gulp.task('connect', function() {
-  connect.server();
+  connect.server({port: 8000});
 });
 
 gulp.task('clean', function() {

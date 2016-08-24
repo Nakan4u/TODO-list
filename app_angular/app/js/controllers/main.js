@@ -14,12 +14,17 @@
                 {
                     name: 'Sam Tailor',
                     phone: '00420 121 242 343',
-                    time: 1288323623006
+                    time: 1248323623006
                 },
                 {
                     name: 'Tom Henks',
                     phone: '00420 121 242 555',
                     time: 1248329626002
+                },
+                {
+                    name: 'Adam Smith',
+                    phone: '00420 121 242 432',
+                    time: 1248325624001
                 }
             ];
             vm.render = function () {

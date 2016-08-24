@@ -19,7 +19,19 @@ var HomePage = function () {
     all: element.all(by.repeater('item in callList')),
     names: element.all(by.repeater('item in callList').column('item.name')),
     phones: element.all(by.repeater('item in callList').column('item.phone')),
-    times: element.all(by.repeater('item in callList').column('item.time'))
+    times: element.all(by.repeater('item in callList').column('item.time')),
+    removeLinks: element.all(by.css('a[ng-click="MainCtrl.removeItem(item.time)"]')),
+    checkboxes: element.all(by.css('input[type="checkbox"]')),
+    nameFilter: element(by.css('th[ng-click="order(\'name\')"]')),
+    timeFilter: element(by.css('th[ng-click="order(\'time\')"]')),
+    allFilter: element(by.css('a[ng-click="setTimeFilter(\'all\')"]')),
+    nextFilter: element(by.css('a[ng-click="setTimeFilter(\'next\')"]')),
+    finishedFilter: element(by.css('a[ng-click="setTimeFilter(\'finished\')"]'))
+  }
+  this.nextCall = {
+    nameField: element(by.css('.next-item input[name="user-name"]')),
+    phoneField: element(by.css('.next-item input[name="user-phone"]')),
+    timeField: element(by.css('.next-item input[name="user-time"]'))
   }
 
   //   this.get = function() {

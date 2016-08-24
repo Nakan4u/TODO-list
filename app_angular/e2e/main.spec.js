@@ -27,6 +27,8 @@ describe('ToDoCalls App', function () {
     beforeEach(function () {
         browser.get('http://localhost:8000/app');
         // browser.get('http://nakan4u.github.io/TODO-list/app_angular/dist/');
+        browser.executeScript('window.sessionStorage.clear();');
+        browser.executeScript('window.localStorage.clear();');
     });
 
     it('should have a title: ToDoCalls angular app', function () {
@@ -70,9 +72,6 @@ describe('ToDoCalls App', function () {
             expect(HomePage.addForm.errors.timePattern.isDisplayed()).toBeTruthy();
         });
 
-    });
-
-    describe('Call list', function () {
         it('should add new contact', function () {
             HomePage.addForm.nameField.sendKeys(browser.params.contactValid.name);
             HomePage.addForm.phoneField.sendKeys(browser.params.contactValid.phone);
@@ -80,28 +79,93 @@ describe('ToDoCalls App', function () {
             HomePage.addForm.submitButton.click();
 
             HomePage.contactsList.all.then(function (contacts) {
-                expect(contacts.length).toEqual(3);
+                expect(contacts.length).toEqual(4);
             });
 
             HomePage.contactsList.names.then(function (contacts) {
-                expect(contacts[0].getText()).toEqual(browser.params.contactValid.name);
+                expect(contacts[3].getText()).toEqual(browser.params.contactValid.name);
             });
 
             HomePage.contactsList.phones.then(function (contacts) {
-                expect(contacts[0].getText()).toEqual(browser.params.contactValid.convertedPhone);
+                expect(contacts[3].getText()).toEqual(browser.params.contactValid.convertedPhone);
             });
 
             HomePage.contactsList.times.then(function (contacts) {
-                expect(contacts[0].getText()).toEqual(browser.params.contactValid.time);
+                expect(contacts[3].getText()).toEqual(browser.params.contactValid.time);
             });
         });
-        // TODO:
-        // should sort time asc/desc
-        // should sort names asc/desc
-        // should remove contact
-        // past contact should be checked
-        // future contact should be checked
+    });
 
+    describe('Call list', function () {
+        it('should sort items by time ASC by default', function () {
+            HomePage.contactsList.times.then(function (contacts) {
+                expect(contacts[0].getText()).toEqual('07:33');
+            });
+        });
+        it('should sort items by time DESC', function () {
+            HomePage.contactsList.timeFilter.click();
+
+            HomePage.contactsList.times.then(function (contacts) {
+                expect(contacts[0].getText()).toEqual('09:13');
+            });
+        });
+        it('should sort names by name ASC', function () {
+            HomePage.contactsList.nameFilter.click();
+
+            HomePage.contactsList.names.then(function (contacts) {
+                expect(contacts[0].getText()).toEqual('Adam Smith');
+            });
+        });
+        it('should sort names by name DESC', function () {
+            HomePage.contactsList.nameFilter.click();
+            HomePage.contactsList.nameFilter.click();
+
+            HomePage.contactsList.names.then(function (contacts) {
+                expect(contacts[2].getText()).toEqual('Adam Smith');
+            });
+        });
+        it('all items should be checked', function () {
+            HomePage.contactsList.checkboxes.then(function (items) {
+                expect(items[0].isSelected()).toBe(true);
+                expect(items[1].isSelected()).toBe(true);
+                expect(items[2].isSelected()).toBe(true);
+            });
+        });
+        it('should be filter items by next button filter', function () {
+            HomePage.contactsList.nextFilter.click();
+
+            HomePage.contactsList.all.then(function (contacts) {
+                expect(contacts[0].isPresent()).toBe(true);
+                expect(contacts[1].isPresent()).toBe(true);
+                expect(contacts[2].isPresent()).toBe(true);
+            });
+        });
+        it('should remove item from the list', function () {
+            HomePage.contactsList.removeLinks.get(0).click();
+
+            HomePage.contactsList.all.then(function (contacts) {
+                expect(contacts.length).toEqual(2);
+            });
+        });
+    });
+
+    describe('Next call form', function () {
+        it('should add contact in future to the next form', function () {
+            HomePage.addForm.nameField.sendKeys(browser.params.contactValid.name);
+            HomePage.addForm.phoneField.sendKeys(browser.params.contactValid.phone);
+            HomePage.addForm.timeField.sendKeys(browser.params.contactValid.time);
+            HomePage.addForm.submitButton.click();
+
+            expect(HomePage.nextCall.nameField.getAttribute("value")).toEqual(browser.params.contactValid.name);
+
+            expect(HomePage.nextCall.phoneField.getAttribute("value")).toEqual(browser.params.contactValid.convertedPhone);
+
+            expect(HomePage.nextCall.timeField.getAttribute("value")).toEqual(browser.params.contactValid.time);
+
+            HomePage.contactsList.checkboxes.then(function (items) {
+                expect(items[3].isSelected()).toBe(false);
+            });
+        });
     });
 
 });

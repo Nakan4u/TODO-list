@@ -14,7 +14,7 @@ exports.config = {
             name: 'Ben',
             phone: '+(420) 111 222 333',
             convertedPhone: '00420 111 222 333',
-            time: '12:00'
+            time: '23:59'
         },
         contactInvalid: {
             name: 'Jim',
