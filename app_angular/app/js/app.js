@@ -3,9 +3,9 @@ angular
     .module('myApp', ['ui.bootstrap', 'ui.bootstrap.datetimepicker'])
     .constant('CONSTS', {
         TIMEFILTER: {
-            ALL: 0,
-            FINISHED: 1,
-            NEXT: 2
+            ALL: 'all',
+            FINISHED: 'finished',
+            NEXT: 'next'
         }
     });
 
