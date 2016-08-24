@@ -4,3 +4,4 @@
 /app_angular/node_modules
 /app_old/bower_components
 /app_angular/coverage
+/app_angular/.coveralls.yml
