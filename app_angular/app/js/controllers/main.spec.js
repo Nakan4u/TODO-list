@@ -14,8 +14,8 @@ describe('MainController', function () {
     }));
 
 
-    it('should create a `contacts` model with 2 contacts by default', function () {
-        expect(scope.callList.length).toBe(2);
+    it('should create a `contacts` model with 3 contacts by default', function () {
+        expect(scope.callList.length).toBe(3);
     });
 
     it('method updateData should set `contacts` model to local storage', function () {
@@ -24,7 +24,7 @@ describe('MainController', function () {
         MainCtrl.updateData();
         localStorageData = localStorage.getItem('list');
 
-        expect(angular.fromJson(localStorageData).length).toBe(2);
+        expect(angular.fromJson(localStorageData).length).toBe(3);
     });
 
     it('method saveData should change `contacts` model by add 1 new contact', function () {
@@ -35,13 +35,13 @@ describe('MainController', function () {
         };
         MainCtrl.saveData(newContact);
 
-        expect(scope.callList.length).toBe(3);
+        expect(scope.callList.length).toBe(4);
     });
 
     it('method removeItem should change `contacts` model by remove 1 contacts', function () {
         MainCtrl.removeItem(1288323623006);
 
-        expect(scope.callList.length).toBe(1);
+        expect(scope.callList.length).toBe(3);
     });
 
     describe('method nextCall', function () {
