@@ -1,14 +1,19 @@
 // spec.js
 describe('ToDoCalls App', function () {
 
-    var dv = browser.driver;
+    var HomePageClass = require('./main.po.js'),
+        HomePage,
+        dv = browser.driver;
 
     beforeAll(function () {
         dv.manage().deleteAllCookies();
+        HomePage = new HomePageClass();
     });
 
     beforeEach(function () {
-        browser.get('http://localhost:8000/app');
+        HomePage.getAppUrl();
+        browser.executeScript('window.sessionStorage.clear();');
+        browser.executeScript('window.localStorage.clear();');
     });
 
     it('should have a title: ToDoCalls angular app', function () {
@@ -18,36 +23,24 @@ describe('ToDoCalls App', function () {
     describe('Add call form', function () {
 
         it('should show error when attempt submit with empty name field', function () {
-            var nameField = element(by.model('name')),
-                submitButton = element(by.css('#add-button')),
-                nameRequired = element(by.css('span[ng-show="addCallForm.userName.$error.required"]'));
+            HomePage.addForm.nameField.sendKeys('');
+            HomePage.addForm.submitButton.click();
 
-            nameField.sendKeys('');
-            submitButton.click();
-
-            expect(nameRequired.isDisplayed()).toBeTruthy();
+            expect(HomePage.addForm.errors.nameRequired.isDisplayed()).toBeTruthy();
         });
 
         it('should show error when attempt submit with empty phone field', function () {
-            var phoneField = element(by.model('phone')),
-                submitButton = element(by.css('#add-button')),
-                phoneRequired = element(by.css('span[ng-show="addCallForm.userPhone.$error.required"]'));
+            HomePage.addForm.phoneField.sendKeys('');
+            HomePage.addForm.submitButton.click();
 
-            phoneField.sendKeys('');
-            submitButton.click();
-
-            expect(phoneRequired.isDisplayed()).toBeTruthy();
+            expect(HomePage.addForm.errors.phoneRequired.isDisplayed()).toBeTruthy();
         });
 
         it('should show error when attempt submit with invalid phone number', function () {
-            var phoneField = element(by.model('phone')),
-                submitButton = element(by.css('#add-button')),
-                phonePattern = element(by.css('span[ng-show="addCallForm.userPhone.$error.pattern"]'));
+            HomePage.addForm.phoneField.sendKeys(browser.params.contactInvalid.phone);
+            HomePage.addForm.submitButton.click();
 
-            phoneField.sendKeys('911');
-            submitButton.click();
-
-            expect(phonePattern.isDisplayed()).toBeTruthy();
+            expect(HomePage.addForm.errors.phonePattern.isDisplayed()).toBeTruthy();
         });
     });
 
