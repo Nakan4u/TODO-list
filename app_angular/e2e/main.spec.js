@@ -27,6 +27,28 @@ describe('ToDoCalls App', function () {
 
             expect(nameRequired.isDisplayed()).toBeTruthy();
         });
+
+        it('should show error when attempt submit with empty phone field', function () {
+            var phoneField = element(by.model('phone')),
+                submitButton = element(by.css('#add-button')),
+                phoneRequired = element(by.css('span[ng-show="addCallForm.userPhone.$error.required"]'));
+
+            phoneField.sendKeys('');
+            submitButton.click();
+
+            expect(phoneRequired.isDisplayed()).toBeTruthy();
+        });
+
+        it('should show error when attempt submit with invalid phone number', function () {
+            var phoneField = element(by.model('phone')),
+                submitButton = element(by.css('#add-button')),
+                phonePattern = element(by.css('span[ng-show="addCallForm.userPhone.$error.pattern"]'));
+
+            phoneField.sendKeys('911');
+            submitButton.click();
+
+            expect(phonePattern.isDisplayed()).toBeTruthy();
+        });
     });
 
 });
