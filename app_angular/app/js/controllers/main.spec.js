@@ -1,69 +1,169 @@
-describe('MainController', function () {
-    var scope,
-        MainCtrl;
+// spec.js
+describe('ToDoCalls App', function () {
 
-    beforeEach(module('myApp'));
+    var HomePageClass = require('./main.po.js'),
+        HomePage,
+        dv = browser.driver;
 
-    beforeEach(inject(function (_$controller_, _$rootScope_) {
-        $controller = _$controller_;
-        $rootScope = _$rootScope_.$new();
+    beforeAll(function () {
+        dv.manage().deleteAllCookies();
+        HomePage = new HomePageClass();
 
-        localStorage.clear();
-        scope = {};
-        MainCtrl = $controller('MainController', { $scope: scope });
-    }));
+        // add delay before each test queue 100ms wait
+        var origFn = browser.driver.controlFlow().execute;
+        
+        browser.driver.controlFlow().execute = function () {
+            var args = arguments;
 
+            origFn.call(browser.driver.controlFlow(), function () {
+                return protractor.promise.delayed(100);
+            });
 
-    it('should create a `contacts` model with 3 contacts by default', function () {
-        expect(scope.callList.length).toBe(3);
-    });
-
-    it('method updateData should set `contacts` model to local storage', function () {
-        var localStorageData;
-
-        MainCtrl.updateData();
-        localStorageData = localStorage.getItem('list');
-
-        expect(angular.fromJson(localStorageData).length).toBe(3);
-    });
-
-    it('method saveData should change `contacts` model by add 1 new contact', function () {
-        var newContact = {
-            name: 'John',
-            phone: '+(420) 121 242 333',
-            time: 1288323623002
+            return origFn.apply(browser.driver.controlFlow(), args);
         };
-        MainCtrl.saveData(newContact);
-
-        expect(scope.callList.length).toBe(4);
+        // end delay logik
     });
 
-    it('method removeItem should change `contacts` model by remove 1 contacts', function () {
-        MainCtrl.removeItem(1288323623006);
-
-        expect(scope.callList.length).toBe(3);
+    beforeEach(function () {
+        browser.get('http://localhost:8000/app');
+        browser.executeScript('window.sessionStorage.clear();');
+        browser.executeScript('window.localStorage.clear();');
     });
 
-    describe('method nextCall', function () {
-        it('should find contact in `contacts` if new contact will be in future', function () {
-            var currentTime = new Date().getTime(),
-                futureTime = currentTime + 60000, //one minute in future
-                newContact = {
-                    name: 'Jim',
-                    phone: '+(420) 121 242 333',
-                    time: futureTime
-                };
-            scope.callList.push(newContact);
+    it('should have a title: ToDoCalls angular app', function () {
+        expect(browser.getTitle()).toEqual('ToDoCalls angular app');
+    });
 
-            MainCtrl.findNextCall();
+    describe('Add call form', function () {
 
-            expect(scope.nextCall.name).toBe('Jim');
+        it('should show error when attempt submit with empty name field', function () {
+            HomePage.addForm.nameField.sendKeys('');
+            HomePage.addForm.submitButton.click();
+
+            expect(HomePage.addForm.errors.nameRequired.isDisplayed()).toBeTruthy();
         });
 
-        it('should not find contact in `contacts` if all contacts in the past', function () {
-            MainCtrl.findNextCall();
+        it('should show error when attempt submit with empty phone field', function () {
+            HomePage.addForm.phoneField.sendKeys('');
+            HomePage.addForm.submitButton.click();
 
-            expect(scope.nextCall).not.toBeDefined();
+            expect(HomePage.addForm.errors.phoneRequired.isDisplayed()).toBeTruthy();
+        });
+
+        it('should show error when attempt submit with invalid phone number', function () {
+            HomePage.addForm.phoneField.sendKeys(browser.params.contactInvalid.phone);
+            HomePage.addForm.submitButton.click();
+
+            expect(HomePage.addForm.errors.phonePattern.isDisplayed()).toBeTruthy();
+        });
+
+        it('should show error when attempt submit with empty time field', function () {
+            HomePage.addForm.timeField.sendKeys('');
+            HomePage.addForm.submitButton.click();
+
+            expect(HomePage.addForm.errors.timeRequired.isDisplayed()).toBeTruthy();
+        });
+
+        it('should show error when attempt submit with invalid time', function () {
+            HomePage.addForm.timeField.sendKeys(browser.params.contactInvalid.time);
+            HomePage.addForm.submitButton.click();
+
+            expect(HomePage.addForm.errors.timePattern.isDisplayed()).toBeTruthy();
+        });
+
+        it('should add new contact', function () {
+            HomePage.addForm.nameField.sendKeys(browser.params.contactValid.name);
+            HomePage.addForm.phoneField.sendKeys(browser.params.contactValid.phone);
+            HomePage.addForm.timeField.sendKeys(browser.params.contactValid.time);
+            HomePage.addForm.submitButton.click();
+
+            HomePage.contactsList.all.then(function (contacts) {
+                expect(contacts.length).toEqual(4);
+            });
+
+            HomePage.contactsList.names.then(function (contacts) {
+                expect(contacts[3].getText()).toEqual(browser.params.contactValid.name);
+            });
+
+            HomePage.contactsList.phones.then(function (contacts) {
+                expect(contacts[3].getText()).toEqual(browser.params.contactValid.convertedPhone);
+            });
+
+            HomePage.contactsList.times.then(function (contacts) {
+                expect(contacts[3].getText()).toEqual(browser.params.contactValid.time);
+            });
+        });
+    });
+
+    describe('Call list', function () {
+        it('should sort items by time ASC by default', function () {
+            HomePage.contactsList.times.then(function (contacts) {
+                expect(contacts[0].getText()).toEqual('07:33');
+            });
+        });
+        it('should sort items by time DESC', function () {
+            HomePage.contactsList.timeFilter.click();
+
+            HomePage.contactsList.times.then(function (contacts) {
+                expect(contacts[0].getText()).toEqual('09:13');
+            });
+        });
+        it('should sort names by name ASC', function () {
+            HomePage.contactsList.nameFilter.click();
+
+            HomePage.contactsList.names.then(function (contacts) {
+                expect(contacts[0].getText()).toEqual('Adam Smith');
+            });
+        });
+        it('should sort names by name DESC', function () {
+            HomePage.contactsList.nameFilter.click();
+            HomePage.contactsList.nameFilter.click();
+
+            HomePage.contactsList.names.then(function (contacts) {
+                expect(contacts[2].getText()).toEqual('Adam Smith');
+            });
+        });
+        it('all items should be checked', function () {
+            HomePage.contactsList.checkboxes.then(function (items) {
+                expect(items[0].isSelected()).toBe(true);
+                expect(items[1].isSelected()).toBe(true);
+                expect(items[2].isSelected()).toBe(true);
+            });
+        });
+        it('should be filter items by next button filter', function () {
+            HomePage.contactsList.nextFilter.click();
+
+            HomePage.contactsList.all.then(function (contacts) {
+                expect(contacts[0].isPresent()).toBe(true);
+                expect(contacts[1].isPresent()).toBe(true);
+                expect(contacts[2].isPresent()).toBe(true);
+            });
+        });
+        it('should remove item from the list', function () {
+            HomePage.contactsList.removeLinks.get(0).click();
+
+            HomePage.contactsList.all.then(function (contacts) {
+                expect(contacts.length).toEqual(2);
+            });
+        });
+    });
+
+    describe('Next call form', function () {
+        it('should add contact in future to the next form', function () {
+            HomePage.addForm.nameField.sendKeys(browser.params.contactValid.name);
+            HomePage.addForm.phoneField.sendKeys(browser.params.contactValid.phone);
+            HomePage.addForm.timeField.sendKeys(browser.params.contactValid.time);
+            HomePage.addForm.submitButton.click();
+
+            expect(HomePage.nextCall.nameField.getAttribute("value")).toEqual(browser.params.contactValid.name);
+
+            expect(HomePage.nextCall.phoneField.getAttribute("value")).toEqual(browser.params.contactValid.convertedPhone);
+
+            expect(HomePage.nextCall.timeField.getAttribute("value")).toEqual(browser.params.contactValid.time);
+
+            HomePage.contactsList.checkboxes.then(function (items) {
+                expect(items[3].isSelected()).toBe(false);
+            });
         });
     });
 

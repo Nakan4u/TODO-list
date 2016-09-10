@@ -4,6 +4,10 @@ exports.config = {
   seleniumAddress: 'http://localhost:4444/wd/hub',
   baseUrl: 'http://localhost:8000/',
   specs: ['main.spec.js'],
+  suites: { // to run suite : protractor --suite callList e2e/protractor.conf.js
+    main: 'main.spec.js',
+    callList: 'callList.spec.js'
+  },
   capabilities: {
     'browserName': 'chrome'
   },
@@ -22,6 +26,6 @@ exports.config = {
       name: 'Jim',
       phone: '911',
       time: 'abc'
-    },
+    }
   }
 }
