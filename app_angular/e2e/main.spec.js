@@ -42,6 +42,43 @@ describe('ToDoCalls App', function () {
 
             expect(HomePage.addForm.errors.phonePattern.isDisplayed()).toBeTruthy();
         });
+
+        it('should show error when attempt submit with empty time field', function () {
+            HomePage.addForm.timeField.sendKeys('');
+            HomePage.addForm.submitButton.click();
+
+            expect(HomePage.addForm.errors.timeRequired.isDisplayed()).toBeTruthy();
+        });
+
+        it('should show error when attempt submit with invalid time', function () {
+            HomePage.addForm.timeField.sendKeys(browser.params.contactInvalid.time);
+            HomePage.addForm.submitButton.click();
+
+            expect(HomePage.addForm.errors.timePattern.isDisplayed()).toBeTruthy();
+        });
+
+        it('should add new contact', function () {
+            HomePage.addForm.nameField.sendKeys(browser.params.contactValid.name);
+            HomePage.addForm.phoneField.sendKeys(browser.params.contactValid.phone);
+            HomePage.addForm.timeField.sendKeys(browser.params.contactValid.time);
+            HomePage.addForm.submitButton.click();
+
+            HomePage.contactsList.all.then(function (contacts) {
+                expect(contacts.length).toEqual(4);
+            });
+
+            HomePage.contactsList.names.then(function (contacts) {
+                expect(contacts[3].getText()).toEqual(browser.params.contactValid.name);
+            });
+
+            HomePage.contactsList.phones.then(function (contacts) {
+                expect(contacts[3].getText()).toEqual(browser.params.contactValid.convertedPhone);
+            });
+
+            HomePage.contactsList.times.then(function (contacts) {
+                expect(contacts[3].getText()).toEqual(browser.params.contactValid.time);
+            });
+        });
     });
 
 });
